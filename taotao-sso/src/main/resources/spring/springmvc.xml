@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+     
+       
+       <context:component-scan base-package="com.taotao.sso.controller" />
+        <!-- springmvc三大组件 -->
+        <mvc:annotation-driven />
+        
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        	<property name="prefix" value="/WEB-INF/jsp/"/>
+        	<property name="suffix" value=".jsp"/>
+        </bean>
+        
+       
+  <!--  需要对静态资源做映射。 -->
+  <!-- / 拦截了静态资源css,images,js，需要放行 ，并不会拦截jsp-->
+ <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
+	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/> 
+     <mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
+     
+     <!-- 如果web.xml中拦截为/*，会直接把所有静态资源拦截，包括jsp,把jsp名称当作controller去寻找匹配，找不到对应的
+     controller,报错404！ 
+     所以一般推荐*.do这种拦截方式-->
+     </beans>
